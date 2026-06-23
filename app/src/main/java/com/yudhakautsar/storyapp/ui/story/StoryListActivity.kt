@@ -1,6 +1,5 @@
 package com.yudhakautsar.storyapp.ui.story
 
-import android.content.Intent
 import androidx.activity.viewModels
 import com.yudhakautsar.storyapp.StoryApplication
 import com.yudhakautsar.storyapp.base.BaseActivity

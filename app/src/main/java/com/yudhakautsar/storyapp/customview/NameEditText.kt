@@ -15,7 +15,7 @@ class NameEditText @JvmOverloads constructor(
     defStyleAttr: Int = android.R.attr.editTextStyle
 ) : AppCompatEditText(context, attrs, defStyleAttr) {
 
-    private val validator: InputValidator = NameValidator(context)
+    private val validator: InputValidator = NameValidator()
 
     init {
         setupView()

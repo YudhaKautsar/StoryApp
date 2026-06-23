@@ -2,7 +2,6 @@ package com.yudhakautsar.storyapp.ui.story
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.yudhakautsar.storyapp.base.BaseViewModel
 import com.yudhakautsar.storyapp.base.ViewState

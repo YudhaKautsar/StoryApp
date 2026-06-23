@@ -2,14 +2,12 @@ package com.yudhakautsar.storyapp.ui.auth.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.yudhakautsar.storyapp.base.BaseViewModel
 import com.yudhakautsar.storyapp.base.Resource
 import com.yudhakautsar.storyapp.base.ViewState
 import com.yudhakautsar.storyapp.data.local.UserPreference
 import com.yudhakautsar.storyapp.domain.model.User
 import com.yudhakautsar.storyapp.domain.usecase.auth.LoginUseCase
-import kotlinx.coroutines.launch
 
 class LoginViewModel(
     private val loginUseCase: LoginUseCase,

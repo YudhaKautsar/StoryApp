@@ -48,11 +48,4 @@ class NameEditText @JvmOverloads constructor(
         return parent.parent as? TextInputLayout
     }
 
-    fun isValid(): Boolean {
-        return validator.validate(text.toString()).isValid
-    }
-
-    fun getName(): String {
-        return text.toString()
-    }
 }

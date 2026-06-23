@@ -12,10 +12,6 @@ sealed class AppException(
 
     class TimeoutException : AppException(R.string.error_timeout)
 
-    class ServerException : AppException(R.string.error_server)
-
-    class UnauthorizedException : AppException(R.string.error_unauthorized)
-
     class ValidationException(message: String) : AppException(
         messageResId = 0,
         messageString = message

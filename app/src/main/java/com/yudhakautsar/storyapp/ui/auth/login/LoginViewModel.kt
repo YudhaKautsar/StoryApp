@@ -37,6 +37,10 @@ class LoginViewModel(
                 is Resource.Loading -> {
                     _loginState.postValue(ViewState.Loading)
                 }
+
+                else -> {
+                    _loginState.postValue(ViewState.Empty)
+                }
             }
         }
     }

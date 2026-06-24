@@ -11,8 +11,8 @@ class RegisterViewModel(
     private val registerUseCase: RegisterUseCase
 ) : BaseViewModel() {
 
-    private val _registerState = MutableLiveData<ViewState<Unit>>()
-    val registerState: LiveData<ViewState<Unit>> = _registerState
+    private val _registerState = MutableLiveData<ViewState<String>>()
+    val registerState: LiveData<ViewState<String>> = _registerState
 
     init {
         _registerState.value = ViewState.Idle
@@ -25,7 +25,7 @@ class RegisterViewModel(
             val params = RegisterUseCase.Params(name, email, password)
             when (val result = registerUseCase(params)) {
                 is Resource.Success -> {
-                    _registerState.postValue(ViewState.Success(Unit))
+                    _registerState.postValue(ViewState.Success(result.data))
                 }
                 is Resource.Error -> {
                     _registerState.postValue(ViewState.Error(result.message))
@@ -33,6 +33,7 @@ class RegisterViewModel(
                 is Resource.Loading -> {
                     _registerState.postValue(ViewState.Loading)
                 }
+                else -> {}
             }
         }
     }

@@ -33,7 +33,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
                 }
                 is ViewState.Success -> {
                     hideLoading()
-                    handleRegisterSuccess()
+                    handleRegisterSuccess(state.data)
                 }
                 is ViewState.Error -> {
                     hideLoading()
@@ -90,8 +90,8 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
         }
     }
 
-    private fun handleRegisterSuccess() {
-        showToast(getString(R.string.register_success))
+    private fun handleRegisterSuccess(message: String) {
+        showToast(message)
         finish()
     }
 

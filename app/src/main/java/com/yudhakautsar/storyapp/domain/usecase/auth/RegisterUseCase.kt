@@ -6,9 +6,9 @@ import com.yudhakautsar.storyapp.domain.usecase.UseCase
 
 class RegisterUseCase(
     private val repository: AuthRepository
-) : UseCase<RegisterUseCase.Params, Unit> {
+) : UseCase<RegisterUseCase.Params, String> {
 
-    override suspend fun invoke(params: Params): Resource<Unit> {
+    override suspend fun invoke(params: Params): Resource<String> {
         return repository.register(params.name, params.email, params.password)
     }
 

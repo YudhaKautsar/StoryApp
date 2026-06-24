@@ -12,7 +12,7 @@ sealed class AppException(
 
     class TimeoutException : AppException(R.string.error_timeout)
 
-    class ValidationException(message: String) : AppException(
+    class ValidationException(message: String?) : AppException(
         messageResId = 0,
         messageString = message
     )

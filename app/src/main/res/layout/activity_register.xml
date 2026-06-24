@@ -58,7 +58,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
-            app:startIconDrawable="@android:drawable/ic_menu_edit">
+            app:startIconDrawable="@drawable/ic_user_name">
 
             <com.yudhakautsar.storyapp.customview.NameEditText
                 android:id="@+id/et_register_name"

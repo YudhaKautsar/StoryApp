@@ -40,6 +40,10 @@
             android:exported="false"
             android:label="@string/title_story_list" />
 
+        <activity
+            android:name=".ui.story.StoryDetailActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

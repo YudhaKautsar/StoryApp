@@ -76,13 +76,13 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
 
         when {
             name.isEmpty() || email.isEmpty() || password.isEmpty() -> {
-                showError(getString(R.string.register_empty_fields))
+                showError(getString(R.string.error_empty_fields))
             }
             !binding.etRegisterEmail.isValid() -> {
-                showError(getString(R.string.register_invalid_email))
+                showError(getString(R.string.error_invalid_email))
             }
             !binding.etRegisterPassword.isValid() -> {
-                showError(getString(R.string.register_invalid_password))
+                showError(getString(R.string.error_invalid_password))
             }
             else -> {
                 viewModel.register(name, email, password)

@@ -3,16 +3,21 @@ package com.yudhakautsar.storyapp.ui.splash
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
-import android.os.Handler
-import android.os.Looper
 import android.view.WindowInsets
 import android.view.WindowManager
+import androidx.activity.viewModels
+import com.yudhakautsar.storyapp.StoryApplication
 import com.yudhakautsar.storyapp.base.BaseActivity
 import com.yudhakautsar.storyapp.databinding.ActivitySplashBinding
 import com.yudhakautsar.storyapp.ui.auth.login.LoginActivity
+import com.yudhakautsar.storyapp.ui.story.StoryListActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : BaseActivity<ActivitySplashBinding>() {
+
+    private val viewModel: SplashViewModel by viewModels {
+        SplashViewModelFactory((application as StoryApplication).appContainer.userPreference)
+    }
 
     override fun getViewBinding(): ActivitySplashBinding {
         return ActivitySplashBinding.inflate(layoutInflater)
@@ -42,16 +47,24 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
             .alpha(1f)
             .setDuration(SPLASH_DURATION)
             .withEndAction {
-                Handler(Looper.getMainLooper()).postDelayed({
-                    startActivity(Intent(this, LoginActivity::class.java))
-                    finish()
-                }, DELAY_BEFORE_NEXT)
+                viewModel.checkLoginStatus()
             }
             .start()
     }
 
+    override fun setupObservers() {
+        viewModel.isLoggedIn.observe(this) { isLoggedin ->
+            val intent = if (isLoggedin) {
+                Intent(this, StoryListActivity::class.java)
+            } else {
+                Intent(this, LoginActivity::class.java)
+            }
+            startActivity(intent)
+            finish()
+        }
+    }
+
     companion object {
         private const val SPLASH_DURATION = 1500L
-        private const val DELAY_BEFORE_NEXT = 500L
     }
 }

@@ -79,13 +79,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
         when {
             email.isEmpty() || password.isEmpty() -> {
-                showError(getString(R.string.login_empty_fields))
+                showError(getString(R.string.error_empty_fields))
             }
             !binding.etLoginEmail.isValid() -> {
-                showError(getString(R.string.login_invalid_email))
+                showError(getString(R.string.error_invalid_email))
             }
             !binding.etLoginPassword.isValid() -> {
-                showError(getString(R.string.login_invalid_password))
+                showError(getString(R.string.error_invalid_password))
             }
             else -> {
                 viewModel.login(email, password)

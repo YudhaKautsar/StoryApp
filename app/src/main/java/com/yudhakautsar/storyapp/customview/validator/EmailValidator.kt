@@ -16,7 +16,7 @@ class EmailValidator(
             )
             !isValidEmailFormat(input) -> ValidationResult(
                 isValid = false,
-                errorMessage = context.getString(R.string.validation_email_invalid)
+                errorMessage = context.getString(R.string.error_invalid_email)
             )
             else -> ValidationResult(isValid = true)
         }

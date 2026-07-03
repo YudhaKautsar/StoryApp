@@ -1,43 +1,43 @@
 <resources>
     <string name="app_name">StoryApp</string>
-
     <string name="app_logo">App Logo</string>
 
-    <string name="login_title">Selamat Datang</string>
-    <string name="login_subtitle">Masuk untuk melanjutkan</string>
-    <string name="login_no_account">Belum punya akun?</string>
-    <string name="login_success">Login berhasil</string>
-    <string name="login_error">Login gagal</string>
-
-    <string name="register_title">Daftar Akun</string>
-    <string name="register_subtitle">Buat akun untuk memulai</string>
-    <string name="register_have_account">Sudah punya akun?</string>
-    <string name="register_success">Akun berhasil dibuat</string>
-    <string name="register_error">Pendaftaran gagal</string>
-
-    <string name="title_story_list">Daftar Cerita</string>
-    <string name="error_network">Tidak ada koneksi internet</string>
-    <string name="error_timeout">Koneksi timeout, silakan coba lagi</string>
-    <string name="error_server">Terjadi kesalahan pada server</string>
-    <string name="error_unauthorized">Sesi Anda telah berakhir</string>
-    <string name="error_unknown">Terjadi kesalahan yang tidak diketahui</string>
-    <string name="error_general">Terjadi kesalahan</string>
-
-    <string name="validation_email_invalid">Format email tidak valid</string>
-    <string name="validation_password_min_length">Password tidak boleh kurang dari %1$d karakter</string>
-
-    <string name="feature_not_available">Fitur register belum tersedia</string>
-
-    <string name="label_register">Daftar</string>
+    <!-- Labels & Actions -->
     <string name="label_email">Email</string>
     <string name="label_password">Password</string>
     <string name="label_name">Name</string>
-    <string name="action_login">Masuk</string>
+    <string name="action_login">Login</string>
+    <string name="action_register">Register</string>
 
-    <string name="error_invalid_email">Format email tidak valid</string>
-    <string name="error_invalid_password">Password minimal 8 karakter</string>
-    <string name="error_empty_fields">Email dan password tidak boleh kosong</string>
-    <string name="register_empty_fields_all">Semua field harus diisi</string>
+    <!-- Titles -->
+    <string name="login_title">Welcome Back</string>
+    <string name="login_subtitle">Login to continue</string>
+    <string name="register_title">Create Account</string>
+    <string name="register_subtitle">Register to get started</string>
+    <string name="title_story_list">Story List</string>
 
+    <!-- Messages -->
+    <string name="login_no_account">Don\'t have an account?</string>
+    <string name="register_have_account">Already have an account?</string>
+    <string name="login_success">Login successful</string>
+    <string name="register_success">Account created successfully</string>
 
+    <!-- Error & Validation -->
+    <string name="error_invalid_email">Invalid email format</string>
+    <string name="error_invalid_password">Password must be at least 8 characters</string>
+    <string name="error_empty_fields">Email and password cannot be empty</string>
+    <string name="error_empty_fields_all">All fields must be filled</string>
+    <string name="validation_password_min_length">Password must be at least %1$d characters</string>
+
+    <string name="error_network">No internet connection</string>
+    <string name="error_timeout">Connection timeout, please try again</string>
+    <string name="error_server">Server error occurred</string>
+    <string name="error_unauthorized">Session expired</string>
+    <string name="error_unknown">Unknown error occurred</string>
+    <string name="error_general">An error occurred</string>
+    <string name="feature_not_available">Register feature is not available yet</string>
+
+    <!-- Menus -->
+    <string name="menu_logout">Logout</string>
+    <string name="menu_localization">Language Settings</string>
 </resources>

@@ -122,7 +122,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_4"
-                android:text="@string/label_register"
+                android:text="@string/action_register"
                 android:textColor="@color/primary_dark"
                 android:textSize="@dimen/text_size_normal"
                 android:textStyle="bold" />

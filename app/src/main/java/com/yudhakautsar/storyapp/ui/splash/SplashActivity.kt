@@ -10,7 +10,7 @@ import com.yudhakautsar.storyapp.StoryApplication
 import com.yudhakautsar.storyapp.base.BaseActivity
 import com.yudhakautsar.storyapp.databinding.ActivitySplashBinding
 import com.yudhakautsar.storyapp.ui.auth.login.LoginActivity
-import com.yudhakautsar.storyapp.ui.story.StoryListActivity
+import com.yudhakautsar.storyapp.ui.story.list.StoryListActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : BaseActivity<ActivitySplashBinding>() {

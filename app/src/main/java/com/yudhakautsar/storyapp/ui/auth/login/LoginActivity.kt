@@ -11,7 +11,7 @@ import com.yudhakautsar.storyapp.base.BaseActivity
 import com.yudhakautsar.storyapp.base.ViewState
 import com.yudhakautsar.storyapp.databinding.ActivityLoginBinding
 import com.yudhakautsar.storyapp.ui.auth.register.RegisterActivity
-import com.yudhakautsar.storyapp.ui.story.StoryListActivity
+import com.yudhakautsar.storyapp.ui.story.list.StoryListActivity
 import com.yudhakautsar.storyapp.utils.showToast
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {

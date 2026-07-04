@@ -40,9 +40,11 @@ class AddStoryActivity : BaseActivity<ActivityAddStoryBinding>() {
     }
 
     override fun setupListeners() {
-        binding.btnGallery.setOnClickListener { startGallery() }
-        binding.btnCamera.setOnClickListener { startCamera() }
-        binding.buttonAdd.setOnClickListener { uploadImage() }
+        binding.apply {
+            btnGallery.setOnClickListener { startGallery() }
+            btnCamera.setOnClickListener { startCamera() }
+            buttonAdd.setOnClickListener { uploadImage() }
+        }
     }
 
     override fun setupObservers() {
@@ -65,9 +67,10 @@ class AddStoryActivity : BaseActivity<ActivityAddStoryBinding>() {
     }
 
     private fun startGallery() {
-        val intent = Intent()
-        intent.action = Intent.ACTION_GET_CONTENT
-        intent.type = "image/*"
+        val intent = Intent().apply {
+            action = Intent.ACTION_GET_CONTENT
+            type = "image/*"
+        }
         val chooser = Intent.createChooser(intent, "Choose a Picture")
         launcherIntentGallery.launch(chooser)
     }
@@ -109,7 +112,9 @@ class AddStoryActivity : BaseActivity<ActivityAddStoryBinding>() {
 
             myFile?.let { file ->
                 getFile = file
-                binding.ivPreview.setImageBitmap(BitmapFactory.decodeFile(file.path))
+                binding.apply {
+                    ivPreview.setImageBitmap(BitmapFactory.decodeFile(file.path))
+                }
             }
         }
     }
@@ -122,27 +127,35 @@ class AddStoryActivity : BaseActivity<ActivityAddStoryBinding>() {
             selectedImg.let { uri ->
                 val myFile = uriToFile(uri, this@AddStoryActivity)
                 getFile = myFile
-                binding.ivPreview.setImageURI(uri)
+                binding.apply {
+                    ivPreview.setImageURI(uri)
+                }
             }
         }
     }
 
     private fun uploadImage() {
-        val description = binding.edAddDescription.text.toString().trim()
-        if (getFile != null && description.isNotEmpty()) {
-            val file = reduceFileImage(getFile as File)
-            viewModel.uploadStory(file, description)
-        } else {
-            showToast("Please select an image and enter a description")
+        binding.apply {
+            val description = edAddDescription.text.toString().trim()
+            if (getFile != null && description.isNotEmpty()) {
+                val file = reduceFileImage(getFile as File)
+                viewModel.uploadStory(file, description)
+            } else {
+                showToast("Please select an image and enter a description")
+            }
         }
     }
 
     override fun showLoading() {
-        binding.buttonAdd.setLoading(true)
+        binding.apply {
+            buttonAdd.setLoading(true)
+        }
     }
 
     override fun hideLoading() {
-        binding.buttonAdd.setLoading(false)
+        binding.apply {
+            buttonAdd.setLoading(false)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

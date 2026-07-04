@@ -28,12 +28,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     override fun setupObservers() {
         viewModel.loginState.observe(this) { state ->
             when (state) {
-                is ViewState.Idle -> {
-                    hideLoading()
-                }
-                is ViewState.Loading -> {
-                    showLoading()
-                }
+                is ViewState.Idle -> hideLoading()
+                is ViewState.Loading -> showLoading()
                 is ViewState.Success -> {
                     hideLoading()
                     handleLoginSuccess()
@@ -42,9 +38,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                     hideLoading()
                     showError(state.message)
                 }
-                is ViewState.Empty -> {
-                    hideLoading()
-                }
+                else -> hideLoading()
             }
         }
     }
@@ -55,40 +49,46 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     }
 
     override fun setupListeners() {
-        binding.btnLogin.setOnClickListener {
-            handleLogin()
-        }
+        binding.apply {
+            btnLogin.setOnClickListener {
+                handleLogin()
+            }
 
-        binding.tvRegister.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
+            tvRegister.setOnClickListener {
+                val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 
     private fun playAnimation() {
-        ObjectAnimator.ofFloat(binding.ivLogo, View.TRANSLATION_X, -30f, 30f).apply {
-            duration = 6000
-            repeatCount = ValueAnimator.INFINITE
-            repeatMode = ValueAnimator.REVERSE
-        }.start()
+        binding.apply {
+            ObjectAnimator.ofFloat(ivLogo, View.TRANSLATION_X, -30f, 30f).apply {
+                duration = 6000
+                repeatCount = ValueAnimator.INFINITE
+                repeatMode = ValueAnimator.REVERSE
+            }.start()
+        }
     }
 
     private fun handleLogin() {
-        val email = binding.etLoginEmail.getEmail()
-        val password = binding.etLoginPassword.getPassword()
+        binding.apply {
+            val email = etLoginEmail.getEmail()
+            val password = etLoginPassword.getPassword()
 
-        when {
-            email.isEmpty() || password.isEmpty() -> {
-                showError(getString(R.string.error_empty_fields))
-            }
-            !binding.etLoginEmail.isValid() -> {
-                showError(getString(R.string.error_invalid_email))
-            }
-            !binding.etLoginPassword.isValid() -> {
-                showError(getString(R.string.error_invalid_password))
-            }
-            else -> {
-                viewModel.login(email, password)
+            when {
+                email.isEmpty() || password.isEmpty() -> {
+                    showError(getString(R.string.error_empty_fields))
+                }
+                !etLoginEmail.isValid() -> {
+                    showError(getString(R.string.error_invalid_email))
+                }
+                !etLoginPassword.isValid() -> {
+                    showError(getString(R.string.error_invalid_password))
+                }
+                else -> {
+                    viewModel.login(email, password)
+                }
             }
         }
     }
@@ -102,15 +102,19 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     }
 
     override fun showLoading() {
-        binding.btnLogin.setLoading(true)
-        binding.etLoginEmail.isEnabled = false
-        binding.etLoginPassword.isEnabled = false
+        binding.apply {
+            btnLogin.setLoading(true)
+            etLoginEmail.isEnabled = false
+            etLoginPassword.isEnabled = false
+        }
     }
 
     override fun hideLoading() {
-        binding.btnLogin.setLoading(false)
-        binding.etLoginEmail.isEnabled = true
-        binding.etLoginPassword.isEnabled = true
+        binding.apply {
+            btnLogin.setLoading(false)
+            etLoginEmail.isEnabled = true
+            etLoginPassword.isEnabled = true
+        }
     }
 
     override fun showError(message: String) {

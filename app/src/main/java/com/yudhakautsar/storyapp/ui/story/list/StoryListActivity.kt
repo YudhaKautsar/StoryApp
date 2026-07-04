@@ -28,8 +28,9 @@ class StoryListActivity : BaseActivity<ActivityStoryListBinding>() {
 
     private val adapter: StoryAdapter by lazy {
         StoryAdapter { story ->
-            val intent = Intent(this, StoryDetailActivity::class.java)
-            intent.putExtra(Constants.EXTRA_STORY_ID, story.id)
+            val intent = Intent(this, StoryDetailActivity::class.java).apply {
+                putExtra(Constants.EXTRA_STORY_ID, story.id)
+            }
             startActivity(intent)
         }
     }
@@ -47,14 +48,18 @@ class StoryListActivity : BaseActivity<ActivityStoryListBinding>() {
     }
 
     override fun setupViews() {
-        binding.rvStories.adapter = adapter
-        supportActionBar?.title = getString(R.string.title_story_list)
+        binding.apply {
+            rvStories.adapter = adapter
+            supportActionBar?.title = getString(R.string.title_story_list)
+        }
     }
 
     override fun setupListeners() {
-        binding.fabAdd.setOnClickListener {
-            val intent = Intent(this, AddStoryActivity::class.java)
-            launcherAddStory.launch(intent)
+        binding.apply {
+            fabAdd.setOnClickListener {
+                val intent = Intent(this@StoryListActivity, AddStoryActivity::class.java)
+                launcherAddStory.launch(intent)
+            }
         }
     }
 
@@ -65,7 +70,9 @@ class StoryListActivity : BaseActivity<ActivityStoryListBinding>() {
                 is ViewState.Success -> {
                     hideLoading()
                     adapter.submitList(state.data) {
-                        binding.rvStories.scrollToPosition(0)
+                        binding.apply {
+                            rvStories.scrollToPosition(0)
+                        }
                     }
                 }
                 is ViewState.Error -> {
@@ -90,8 +97,9 @@ class StoryListActivity : BaseActivity<ActivityStoryListBinding>() {
         return when (item.itemId) {
             R.id.action_logout -> {
                 viewModel.logout()
-                val intent = Intent(this, LoginActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                val intent = Intent(this, LoginActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
                 startActivity(intent)
                 true
             }
@@ -109,10 +117,14 @@ class StoryListActivity : BaseActivity<ActivityStoryListBinding>() {
     }
 
     override fun showLoading() {
-        binding.progressBar.visible()
+        binding.apply {
+            progressBar.visible()
+        }
     }
 
     override fun hideLoading() {
-        binding.progressBar.gone()
+        binding.apply {
+            progressBar.gone()
+        }
     }
 }

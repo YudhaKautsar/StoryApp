@@ -30,29 +30,37 @@ class LoadingButton @JvmOverloads constructor(
     }
 
     fun setText(text: String) {
-        binding.btnAction.text = text
-        originalText = text
+        binding.apply {
+            btnAction.text = text
+            originalText = text
+        }
     }
 
     fun setLoading(isLoading: Boolean) {
-        if (isLoading) {
-            originalText = binding.btnAction.text.toString()
-            binding.btnAction.text = ""
-            binding.btnAction.isEnabled = false
-            binding.progressBar.visibility = VISIBLE
-        } else {
-            binding.btnAction.text = originalText
-            binding.btnAction.isEnabled = true
-            binding.progressBar.visibility = GONE
+        binding.apply {
+            if (isLoading) {
+                originalText = btnAction.text.toString()
+                btnAction.text = ""
+                btnAction.isEnabled = false
+                progressBar.visibility = VISIBLE
+            } else {
+                btnAction.text = originalText
+                btnAction.isEnabled = true
+                progressBar.visibility = GONE
+            }
         }
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
-        binding.btnAction.setOnClickListener(l)
+        binding.apply {
+            btnAction.setOnClickListener(l)
+        }
     }
 
     override fun setEnabled(enabled: Boolean) {
         super.setEnabled(enabled)
-        binding.btnAction.isEnabled = enabled
+        binding.apply {
+            btnAction.isEnabled = enabled
+        }
     }
 }

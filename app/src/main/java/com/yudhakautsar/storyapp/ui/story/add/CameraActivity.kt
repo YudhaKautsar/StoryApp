@@ -33,22 +33,26 @@ class CameraActivity : AppCompatActivity() {
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
-        binding.captureImage.setOnClickListener { takePhoto() }
-        binding.switchCamera.setOnClickListener {
-            cameraSelector = if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) {
-                CameraSelector.DEFAULT_FRONT_CAMERA
-            } else {
-                CameraSelector.DEFAULT_BACK_CAMERA
+        binding.apply {
+            captureImage.setOnClickListener { takePhoto() }
+            switchCamera.setOnClickListener {
+                cameraSelector = if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) {
+                    CameraSelector.DEFAULT_FRONT_CAMERA
+                } else {
+                    CameraSelector.DEFAULT_BACK_CAMERA
+                }
+                startCamera()
             }
-            startCamera()
         }
     }
 
     public override fun onResume() {
         super.onResume()
         hideSystemUI()
-        binding.viewFinder.post {
-            startCamera()
+        binding.apply {
+            viewFinder.post {
+                startCamera()
+            }
         }
     }
 
@@ -73,9 +77,10 @@ class CameraActivity : AppCompatActivity() {
                 }
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                    val intent = Intent()
-                    intent.putExtra("picture", photoFile)
-                    intent.putExtra("isBackCamera", cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)
+                    val intent = Intent().apply {
+                        putExtra("picture", photoFile)
+                        putExtra("isBackCamera", cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)
+                    }
                     setResult(AddStoryActivity.CAMERA_X_RESULT, intent)
                     finish()
                 }

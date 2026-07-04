@@ -73,11 +73,15 @@ class StoryDetailActivity : BaseActivity<ActivityStoryDetailBinding>() {
     }
 
     override fun showLoading() {
-        binding.progressBar.visible()
+        binding.apply {
+            progressBar.visible()
+        }
     }
 
     override fun hideLoading() {
-        binding.progressBar.gone()
+        binding.apply {
+            progressBar.gone()
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

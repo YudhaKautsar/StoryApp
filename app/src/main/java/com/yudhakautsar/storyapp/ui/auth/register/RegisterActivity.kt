@@ -25,12 +25,8 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
     override fun setupObservers() {
         viewModel.registerState.observe(this) { state ->
             when (state) {
-                is ViewState.Idle -> {
-                    hideLoading()
-                }
-                is ViewState.Loading -> {
-                    showLoading()
-                }
+                is ViewState.Idle -> hideLoading()
+                is ViewState.Loading -> showLoading()
                 is ViewState.Success -> {
                     hideLoading()
                     handleRegisterSuccess(state.data)
@@ -39,9 +35,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
                     hideLoading()
                     showError(state.message)
                 }
-                is ViewState.Empty -> {
-                    hideLoading()
-                }
+                else -> hideLoading()
             }
         }
     }
@@ -52,40 +46,46 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
     }
 
     override fun setupListeners() {
-        binding.btnRegister.setOnClickListener {
-            handleRegister()
-        }
+        binding.apply {
+            btnRegister.setOnClickListener {
+                handleRegister()
+            }
 
-        binding.tvLogin.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
+            tvLogin.setOnClickListener {
+                onBackPressedDispatcher.onBackPressed()
+            }
         }
     }
 
     private fun playAnimation() {
-        ObjectAnimator.ofFloat(binding.ivLogo, View.TRANSLATION_X, -30f, 30f).apply {
-            duration = 6000
-            repeatCount = ValueAnimator.INFINITE
-            repeatMode = ValueAnimator.REVERSE
-        }.start()
+        binding.apply {
+            ObjectAnimator.ofFloat(ivLogo, View.TRANSLATION_X, -30f, 30f).apply {
+                duration = 6000
+                repeatCount = ValueAnimator.INFINITE
+                repeatMode = ValueAnimator.REVERSE
+            }.start()
+        }
     }
 
     private fun handleRegister() {
-        val name = binding.etRegisterName.text.toString().trim()
-        val email = binding.etRegisterEmail.getEmail()
-        val password = binding.etRegisterPassword.getPassword()
+        binding.apply {
+            val name = etRegisterName.text.toString().trim()
+            val email = etRegisterEmail.getEmail()
+            val password = etRegisterPassword.getPassword()
 
-        when {
-            name.isEmpty() || email.isEmpty() || password.isEmpty() -> {
-                showError(getString(R.string.error_empty_fields))
-            }
-            !binding.etRegisterEmail.isValid() -> {
-                showError(getString(R.string.error_invalid_email))
-            }
-            !binding.etRegisterPassword.isValid() -> {
-                showError(getString(R.string.error_invalid_password))
-            }
-            else -> {
-                viewModel.register(name, email, password)
+            when {
+                name.isEmpty() || email.isEmpty() || password.isEmpty() -> {
+                    showError(getString(R.string.error_empty_fields))
+                }
+                !etRegisterEmail.isValid() -> {
+                    showError(getString(R.string.error_invalid_email))
+                }
+                !etRegisterPassword.isValid() -> {
+                    showError(getString(R.string.error_invalid_password))
+                }
+                else -> {
+                    viewModel.register(name, email, password)
+                }
             }
         }
     }
@@ -96,17 +96,21 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
     }
 
     override fun showLoading() {
-        binding.btnRegister.setLoading(true)
-        binding.etRegisterName.isEnabled = false
-        binding.etRegisterEmail.isEnabled = false
-        binding.etRegisterPassword.isEnabled = false
+        binding.apply {
+            btnRegister.setLoading(true)
+            etRegisterName.isEnabled = false
+            etRegisterEmail.isEnabled = false
+            etRegisterPassword.isEnabled = false
+        }
     }
 
     override fun hideLoading() {
-        binding.btnRegister.setLoading(false)
-        binding.etRegisterName.isEnabled = true
-        binding.etRegisterEmail.isEnabled = true
-        binding.etRegisterPassword.isEnabled = true
+        binding.apply {
+            btnRegister.setLoading(false)
+            etRegisterName.isEnabled = true
+            etRegisterEmail.isEnabled = true
+            etRegisterPassword.isEnabled = true
+        }
     }
 
     override fun showError(message: String) {

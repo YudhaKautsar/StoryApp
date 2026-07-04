@@ -42,14 +42,16 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     }
 
     private fun playAnimation() {
-        binding.ivLogo.alpha = 0f
-        binding.ivLogo.animate()
-            .alpha(1f)
-            .setDuration(SPLASH_DURATION)
-            .withEndAction {
-                viewModel.checkLoginStatus()
-            }
-            .start()
+        binding.apply {
+            ivLogo.alpha = 0f
+            ivLogo.animate()
+                .alpha(1f)
+                .setDuration(SPLASH_DURATION)
+                .withEndAction {
+                    viewModel.checkLoginStatus()
+                }
+                .start()
+        }
     }
 
     override fun setupObservers() {

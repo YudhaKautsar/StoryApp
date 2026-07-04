@@ -1,4 +1,4 @@
-package com.yudhakautsar.storyapp.ui.story
+package com.yudhakautsar.storyapp.ui.story.add
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

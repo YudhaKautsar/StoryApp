@@ -1,7 +1,9 @@
-package com.yudhakautsar.storyapp.ui.story
+package com.yudhakautsar.storyapp.ui.story.add
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import com.yudhakautsar.storyapp.StoryApplication
@@ -66,8 +68,26 @@ class AddStoryActivity : BaseActivity<ActivityAddStoryBinding>() {
     }
 
     private fun startCamera() {
-        // Implement camera if needed, for now focusing on gallery requirement
-        showToast("Camera feature coming soon")
+        val intent = Intent(this, CameraActivity::class.java)
+        launcherIntentCameraX.launch(intent)
+    }
+
+    private val launcherIntentCameraX = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (it.resultCode == CAMERA_X_RESULT) {
+            val myFile = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                it.data?.getSerializableExtra("picture", File::class.java)
+            } else {
+                @Suppress("DEPRECATION")
+                it.data?.getSerializableExtra("picture")
+            } as? File
+
+            myFile?.let { file ->
+                getFile = file
+                binding.ivPreview.setImageBitmap(BitmapFactory.decodeFile(file.path))
+            }
+        }
     }
 
     private val launcherIntentGallery = registerForActivityResult(
@@ -104,5 +124,9 @@ class AddStoryActivity : BaseActivity<ActivityAddStoryBinding>() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressedDispatcher.onBackPressed()
         return true
+    }
+
+    companion object {
+        const val CAMERA_X_RESULT = 200
     }
 }

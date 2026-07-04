@@ -1,4 +1,4 @@
-package com.yudhakautsar.storyapp.ui.story
+package com.yudhakautsar.storyapp.ui.story.add
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

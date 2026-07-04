@@ -17,7 +17,6 @@
             android:layout_height="300dp"
             android:layout_marginBottom="16dp"
             android:contentDescription="@string/app_name"
-            android:scaleType="centerInside"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_menu_gallery" />
 

@@ -1,4 +1,4 @@
-package com.yudhakautsar.storyapp.ui.story
+package com.yudhakautsar.storyapp.ui.story.detail
 
 import android.os.Build
 import com.bumptech.glide.Glide

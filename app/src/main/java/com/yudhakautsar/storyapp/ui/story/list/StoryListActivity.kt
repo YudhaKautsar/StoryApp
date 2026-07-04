@@ -1,4 +1,4 @@
-package com.yudhakautsar.storyapp.ui.story
+package com.yudhakautsar.storyapp.ui.story.list
 
 import android.content.Intent
 import android.provider.Settings
@@ -11,6 +11,8 @@ import com.yudhakautsar.storyapp.base.BaseActivity
 import com.yudhakautsar.storyapp.base.ViewState
 import com.yudhakautsar.storyapp.databinding.ActivityStoryListBinding
 import com.yudhakautsar.storyapp.ui.auth.login.LoginActivity
+import com.yudhakautsar.storyapp.ui.story.add.AddStoryActivity
+import com.yudhakautsar.storyapp.ui.story.detail.StoryDetailActivity
 import com.yudhakautsar.storyapp.utils.Constants
 import com.yudhakautsar.storyapp.utils.gone
 import com.yudhakautsar.storyapp.utils.showToast
@@ -37,6 +39,13 @@ class StoryListActivity : BaseActivity<ActivityStoryListBinding>() {
 
     override fun setupViews() {
         binding.rvStories.adapter = adapter
+    }
+
+    override fun setupListeners() {
+        binding.fabAdd.setOnClickListener {
+            val intent = Intent(this, AddStoryActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun setupObservers() {

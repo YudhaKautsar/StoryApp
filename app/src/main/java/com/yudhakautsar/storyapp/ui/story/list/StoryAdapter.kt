@@ -1,4 +1,4 @@
-package com.yudhakautsar.storyapp.ui.story
+package com.yudhakautsar.storyapp.ui.story.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

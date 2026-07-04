@@ -14,6 +14,7 @@ import com.yudhakautsar.storyapp.domain.repository.AuthRepository
 import com.yudhakautsar.storyapp.domain.repository.StoryRepository
 import com.yudhakautsar.storyapp.domain.usecase.auth.LoginUseCase
 import com.yudhakautsar.storyapp.domain.usecase.auth.RegisterUseCase
+import com.yudhakautsar.storyapp.domain.usecase.story.AddStoryUseCase
 import com.yudhakautsar.storyapp.domain.usecase.story.GetStoriesUseCase
 import com.yudhakautsar.storyapp.utils.Constants
 
@@ -23,6 +24,7 @@ interface AppContainer {
     val loginUseCase: LoginUseCase
     val registerUseCase: RegisterUseCase
     val getStoriesUseCase: GetStoriesUseCase
+    val addStoryUseCase: AddStoryUseCase
     val userPreference: UserPreference
 }
 
@@ -72,5 +74,9 @@ class AppContainerImpl(private val context: Context) : AppContainer {
 
     override val getStoriesUseCase: GetStoriesUseCase by lazy {
         GetStoriesUseCase(storyRepository)
+    }
+
+    override val addStoryUseCase: AddStoryUseCase by lazy {
+        AddStoryUseCase(storyRepository)
     }
 }

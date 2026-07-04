@@ -1,9 +1,10 @@
 package com.yudhakautsar.storyapp.data.remote.api
 
+import com.yudhakautsar.storyapp.data.remote.dto.FileUploadResponse
 import com.yudhakautsar.storyapp.data.remote.dto.StoryResponse
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Query
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.http.*
 
 interface StoryApiService {
     @GET("stories")
@@ -13,4 +14,14 @@ interface StoryApiService {
         @Query("size") size: Int? = null,
         @Query("location") location: Int? = 0
     ): StoryResponse
+
+    @Multipart
+    @POST("stories")
+    suspend fun uploadStory(
+        @Header("Authorization") token: String,
+        @Part file: MultipartBody.Part,
+        @Part("description") description: RequestBody,
+        @Part("lat") lat: RequestBody? = null,
+        @Part("lon") lon: RequestBody? = null
+    ): FileUploadResponse
 }

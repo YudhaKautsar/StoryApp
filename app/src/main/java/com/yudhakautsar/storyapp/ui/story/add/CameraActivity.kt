@@ -109,7 +109,7 @@ class CameraActivity : AppCompatActivity() {
                     preview,
                     imageCapture
                 )
-            } catch (exc: Exception) {
+            } catch (_: Exception) {
                 runOnUiThread {
                     Toast.makeText(this@CameraActivity, "Gagal memunculkan kamera.", Toast.LENGTH_SHORT).show()
                 }

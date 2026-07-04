@@ -2,7 +2,6 @@ package com.yudhakautsar.storyapp.ui.story.detail
 
 import android.os.Build
 import androidx.activity.viewModels
-import com.bumptech.glide.Glide
 import com.yudhakautsar.storyapp.StoryApplication
 import com.yudhakautsar.storyapp.base.BaseActivity
 import com.yudhakautsar.storyapp.base.ViewState
@@ -10,6 +9,7 @@ import com.yudhakautsar.storyapp.databinding.ActivityStoryDetailBinding
 import com.yudhakautsar.storyapp.domain.model.Story
 import com.yudhakautsar.storyapp.utils.Constants
 import com.yudhakautsar.storyapp.utils.gone
+import com.yudhakautsar.storyapp.utils.loadImage
 import com.yudhakautsar.storyapp.utils.showToast
 import com.yudhakautsar.storyapp.utils.visible
 
@@ -68,9 +68,7 @@ class StoryDetailActivity : BaseActivity<ActivityStoryDetailBinding>() {
         binding.apply {
             tvDetailName.text = story.name
             tvDetailDescription.text = story.description
-            Glide.with(this@StoryDetailActivity)
-                .load(story.photoUrl)
-                .into(ivDetailPhoto)
+            ivDetailPhoto.loadImage(story.photoUrl)
         }
     }
 

@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.yudhakautsar.storyapp.databinding.ItemStoryBinding
 import com.yudhakautsar.storyapp.domain.model.Story
+import com.yudhakautsar.storyapp.utils.loadImage
 
 class StoryAdapter(
     private val onItemClick: (Story) -> Unit
@@ -26,11 +26,11 @@ class StoryAdapter(
 
     class StoryViewHolder(private val binding: ItemStoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(story: Story) {
-            binding.tvItemName.text = story.name
-            binding.tvItemDescription.text = story.description
-            Glide.with(itemView.context)
-                .load(story.photoUrl)
-                .into(binding.ivItemPhoto)
+            binding.apply {
+                tvItemName.text = story.name
+                tvItemDescription.text = story.description
+                ivItemPhoto.loadImage(story.photoUrl)
+            }
         }
     }
 

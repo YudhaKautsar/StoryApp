@@ -22,12 +22,11 @@ class AddStoryViewModel(
         launchWithExceptionHandler {
             val token = userPreference.getToken().first()
             if (token.isNotEmpty()) {
-                addStoryUseCase(token, file, description).collect { result ->
-                    result.onSuccess {
-                        _uploadState.postValue(ViewState.Success(it))
-                    }.onFailure {
-                        _uploadState.postValue(ViewState.Error(it.message ?: "Upload failed"))
-                    }
+                val result = addStoryUseCase(token, file, description)
+                result.onSuccess {
+                    _uploadState.postValue(ViewState.Success(it))
+                }.onFailure {
+                    _uploadState.postValue(ViewState.Error(it.message ?: "Upload failed"))
                 }
             } else {
                 _uploadState.postValue(ViewState.Error("Session expired"))

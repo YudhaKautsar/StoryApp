@@ -4,6 +4,7 @@ import android.content.Intent
 import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import com.yudhakautsar.storyapp.R
 import com.yudhakautsar.storyapp.StoryApplication
@@ -28,8 +29,16 @@ class StoryListActivity : BaseActivity<ActivityStoryListBinding>() {
     private val adapter: StoryAdapter by lazy {
         StoryAdapter { story ->
             val intent = Intent(this, StoryDetailActivity::class.java)
-            intent.putExtra(Constants.EXTRA_STORY_DATA, story)
+            intent.putExtra(Constants.EXTRA_STORY_ID, story.id)
             startActivity(intent)
+        }
+    }
+
+    private val launcherAddStory = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            viewModel.getStories()
         }
     }
 
@@ -39,12 +48,13 @@ class StoryListActivity : BaseActivity<ActivityStoryListBinding>() {
 
     override fun setupViews() {
         binding.rvStories.adapter = adapter
+        supportActionBar?.title = getString(R.string.title_story_list)
     }
 
     override fun setupListeners() {
         binding.fabAdd.setOnClickListener {
             val intent = Intent(this, AddStoryActivity::class.java)
-            startActivity(intent)
+            launcherAddStory.launch(intent)
         }
     }
 
@@ -54,7 +64,9 @@ class StoryListActivity : BaseActivity<ActivityStoryListBinding>() {
                 is ViewState.Loading -> showLoading()
                 is ViewState.Success -> {
                     hideLoading()
-                    adapter.submitList(state.data)
+                    adapter.submitList(state.data) {
+                        binding.rvStories.scrollToPosition(0)
+                    }
                 }
                 is ViewState.Error -> {
                     hideLoading()

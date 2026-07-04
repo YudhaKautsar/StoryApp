@@ -6,5 +6,6 @@ import java.io.File
 
 interface StoryRepository {
     fun getStories(token: String): Flow<List<Story>>
-    suspend fun uploadStory(token: String, file: File, description: String): Flow<Result<String>>
+    suspend fun getStoryDetail(token: String, id: String): Result<Story>
+    suspend fun uploadStory(token: String, file: File, description: String): Result<String>
 }

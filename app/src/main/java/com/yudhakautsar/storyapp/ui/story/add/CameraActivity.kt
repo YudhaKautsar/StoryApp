@@ -35,8 +35,11 @@ class CameraActivity : AppCompatActivity() {
 
         binding.captureImage.setOnClickListener { takePhoto() }
         binding.switchCamera.setOnClickListener {
-            cameraSelector = if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) CameraSelector.DEFAULT_FRONT_CAMERA
-            else CameraSelector.DEFAULT_BACK_CAMERA
+            cameraSelector = if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) {
+                CameraSelector.DEFAULT_FRONT_CAMERA
+            } else {
+                CameraSelector.DEFAULT_BACK_CAMERA
+            }
             startCamera()
         }
     }
@@ -44,7 +47,9 @@ class CameraActivity : AppCompatActivity() {
     public override fun onResume() {
         super.onResume()
         hideSystemUI()
-        startCamera()
+        binding.viewFinder.post {
+            startCamera()
+        }
     }
 
     override fun onDestroy() {
@@ -54,29 +59,23 @@ class CameraActivity : AppCompatActivity() {
 
     private fun takePhoto() {
         val imageCapture = imageCapture ?: return
-
         val photoFile = createCustomTempFile(this)
-
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+
         imageCapture.takePicture(
             outputOptions,
-            ContextCompat.getMainExecutor(this),
+            cameraExecutor,
             object : ImageCapture.OnImageSavedCallback {
                 override fun onError(exc: ImageCaptureException) {
-                    Toast.makeText(
-                        this@CameraActivity,
-                        "Gagal mengambil gambar.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    runOnUiThread {
+                        Toast.makeText(this@CameraActivity, "Gagal mengambil gambar.", Toast.LENGTH_SHORT).show()
+                    }
                 }
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val intent = Intent()
                     intent.putExtra("picture", photoFile)
-                    intent.putExtra(
-                        "isBackCamera",
-                        cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA
-                    )
+                    intent.putExtra("isBackCamera", cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)
                     setResult(AddStoryActivity.CAMERA_X_RESULT, intent)
                     finish()
                 }
@@ -105,13 +104,10 @@ class CameraActivity : AppCompatActivity() {
                     preview,
                     imageCapture
                 )
-
             } catch (exc: Exception) {
-                Toast.makeText(
-                    this@CameraActivity,
-                    "Gagal memunculkan kamera.",
-                    Toast.LENGTH_SHORT
-                ).show()
+                runOnUiThread {
+                    Toast.makeText(this@CameraActivity, "Gagal memunculkan kamera.", Toast.LENGTH_SHORT).show()
+                }
             }
         }, ContextCompat.getMainExecutor(this))
     }

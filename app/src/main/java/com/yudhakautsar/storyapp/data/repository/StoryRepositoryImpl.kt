@@ -31,8 +31,32 @@ class StoryRepositoryImpl(
         emit(stories)
     }
 
-    override suspend fun uploadStory(token: String, file: File, description: String): Flow<Result<String>> = flow {
-        try {
+    override suspend fun getStoryDetail(token: String, id: String): Result<Story> {
+        return try {
+            val response = apiService.getStoryDetail("Bearer $token", id)
+            if (!response.error) {
+                val storyDto = response.story
+                Result.success(
+                    Story(
+                        id = storyDto.id,
+                        name = storyDto.name,
+                        description = storyDto.description,
+                        photoUrl = storyDto.photoUrl,
+                        createdAt = storyDto.createdAt,
+                        lat = storyDto.lat,
+                        lon = storyDto.lon
+                    )
+                )
+            } else {
+                Result.failure(Exception(response.message))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun uploadStory(token: String, file: File, description: String): Result<String> {
+        return try {
             val descriptionRequestBody = description.toRequestBody("text/plain".toMediaType())
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
             val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
@@ -43,12 +67,12 @@ class StoryRepositoryImpl(
 
             val response = apiService.uploadStory("Bearer $token", imageMultipart, descriptionRequestBody)
             if (!response.error) {
-                emit(Result.success(response.message))
+                Result.success(response.message)
             } else {
-                emit(Result.failure(Exception(response.message)))
+                Result.failure(Exception(response.message))
             }
         } catch (e: Exception) {
-            emit(Result.failure(e))
+            Result.failure(e)
         }
     }
 }

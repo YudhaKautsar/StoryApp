@@ -1,11 +1,15 @@
 package com.yudhakautsar.storyapp.ui.story.add
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import com.yudhakautsar.storyapp.StoryApplication
 import com.yudhakautsar.storyapp.base.BaseActivity
 import com.yudhakautsar.storyapp.base.ViewState
@@ -48,6 +52,7 @@ class AddStoryActivity : BaseActivity<ActivityAddStoryBinding>() {
                 is ViewState.Success -> {
                     hideLoading()
                     showToast(state.data)
+                    setResult(RESULT_OK)
                     finish()
                 }
                 is ViewState.Error -> {
@@ -68,8 +73,27 @@ class AddStoryActivity : BaseActivity<ActivityAddStoryBinding>() {
     }
 
     private fun startCamera() {
-        val intent = Intent(this, CameraActivity::class.java)
-        launcherIntentCameraX.launch(intent)
+        if (!allPermissionsGranted()) {
+            requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+        } else {
+            val intent = Intent(this, CameraActivity::class.java)
+            launcherIntentCameraX.launch(intent)
+        }
+    }
+
+    private fun allPermissionsGranted() = ContextCompat.checkSelfPermission(
+        this, Manifest.permission.CAMERA
+    ) == PackageManager.PERMISSION_GRANTED
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            val intent = Intent(this, CameraActivity::class.java)
+            launcherIntentCameraX.launch(intent)
+        } else {
+            Toast.makeText(this, "Izin kamera tidak diberikan.", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private val launcherIntentCameraX = registerForActivityResult(

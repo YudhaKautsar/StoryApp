@@ -1,6 +1,7 @@
 package com.yudhakautsar.storyapp.data.remote.api
 
 import com.yudhakautsar.storyapp.data.remote.dto.FileUploadResponse
+import com.yudhakautsar.storyapp.data.remote.dto.StoryDetailResponse
 import com.yudhakautsar.storyapp.data.remote.dto.StoryResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -14,6 +15,12 @@ interface StoryApiService {
         @Query("size") size: Int? = null,
         @Query("location") location: Int? = 0
     ): StoryResponse
+
+    @GET("stories/{id}")
+    suspend fun getStoryDetail(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): StoryDetailResponse
 
     @Multipart
     @POST("stories")

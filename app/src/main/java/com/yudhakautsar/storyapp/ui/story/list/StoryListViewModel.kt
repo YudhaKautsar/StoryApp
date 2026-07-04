@@ -2,7 +2,6 @@ package com.yudhakautsar.storyapp.ui.story.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.yudhakautsar.storyapp.base.BaseViewModel
 import com.yudhakautsar.storyapp.base.ViewState
 import com.yudhakautsar.storyapp.data.local.UserPreference
@@ -10,7 +9,6 @@ import com.yudhakautsar.storyapp.domain.model.Story
 import com.yudhakautsar.storyapp.domain.usecase.story.GetStoriesUseCase
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 
 class StoryListViewModel(
     private val getStoriesUseCase: GetStoriesUseCase,
@@ -29,7 +27,8 @@ class StoryListViewModel(
                     if (stories.isEmpty()) {
                         _storiesState.postValue(ViewState.Empty)
                     } else {
-                        _storiesState.postValue(ViewState.Success(stories))
+                        val sortedStories = stories.sortedByDescending { it.createdAt }
+                        _storiesState.postValue(ViewState.Success(sortedStories))
                     }
                 }
             } else {
@@ -44,7 +43,7 @@ class StoryListViewModel(
     }
 
     fun logout() {
-        viewModelScope.launch {
+        launchWithExceptionHandler {
             userPreference.clearToken()
         }
     }

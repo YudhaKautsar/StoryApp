@@ -34,10 +34,6 @@ class LoginViewModel(
                 is Resource.Error -> {
                     _loginState.postValue(ViewState.Error(result.message))
                 }
-                is Resource.Loading -> {
-                    _loginState.postValue(ViewState.Loading)
-                }
-
                 else -> {
                     _loginState.postValue(ViewState.Empty)
                 }

@@ -1,34 +1,25 @@
 <resources>
     <string name="app_name">StoryApp</string>
     <string name="app_logo">Logo Aplikasi</string>
-
-    <!-- Labels & Actions -->
     <string name="label_email">Email</string>
     <string name="label_password">Kata Sandi</string>
     <string name="label_name">Nama</string>
     <string name="action_login">Masuk</string>
     <string name="action_register">Daftar</string>
-
-    <!-- Titles -->
     <string name="login_title">Selamat Datang</string>
     <string name="login_subtitle">Masuk untuk melanjutkan</string>
     <string name="register_title">Daftar Akun</string>
     <string name="register_subtitle">Buat akun untuk memulai</string>
     <string name="title_story_list">Daftar Cerita</string>
-
-    <!-- Messages -->
     <string name="login_no_account">Belum punya akun?</string>
     <string name="register_have_account">Sudah punya akun?</string>
     <string name="login_success">Login berhasil</string>
     <string name="register_success">Akun berhasil dibuat</string>
-
-    <!-- Error & Validation -->
     <string name="error_invalid_email">Format email tidak valid</string>
     <string name="error_invalid_password">Kata sandi minimal 8 karakter</string>
     <string name="error_empty_fields">Email dan kata sandi tidak boleh kosong</string>
     <string name="error_empty_fields_all">Semua kolom harus diisi</string>
     <string name="validation_password_min_length">Kata sandi tidak boleh kurang dari %1$d karakter</string>
-
     <string name="error_network">Tidak ada koneksi internet</string>
     <string name="error_timeout">Koneksi berakhir, silakan coba lagi</string>
     <string name="error_server">Terjadi kesalahan pada server</string>
@@ -36,8 +27,6 @@
     <string name="error_unknown">Terjadi kesalahan yang tidak diketahui</string>
     <string name="error_general">Terjadi kesalahan</string>
     <string name="feature_not_available">Fitur pendaftaran belum tersedia</string>
-
-    <!-- Menus -->
     <string name="menu_logout">Keluar</string>
     <string name="menu_localization">Pengaturan Bahasa</string>
 </resources>
